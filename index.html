@@ -1,46 +1,75 @@
-```html
 <!DOCTYPE html>
 <html lang="sw">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Ziana! ❤️ Queen of My Heart</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  
+  <title>Happy Birthday Ziana! ❤️</title>
   <style>
     :root {
-      --gold-primary: #D4AF37;
-      --gold-glow: #FFF8DC;
-      --pink-royal: #E91E63;
-      --pink-accent: #FF4081;
-      --deep-violet: #0d021a;
+      --bg-gradient: radial-gradient(circle at center, #2d0b4e 0%, #0d041a 100%);
+      --accent-pink: #ff2a75;
+      --accent-gold: #ffd700;
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 215, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: radial-gradient(circle at 50% 20%, #2b083b 0%, #120324 50%, #080112 100%);
+      background: var(--bg-gradient);
       color: #ffffff;
       min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
     }
 
-    .font-cinzel { font-family: 'Cinzel', serif; }
-    .font-script { font-family: 'Great Vibes', cursive; }
-
-    /* Glassmorphism Cards */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 215, 0, 0.05);
+    /* Landing Screen Overlay */
+    #welcome-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(13, 4, 26, 0.95);
+      backdrop-filter: blur(15px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
     }
 
-    /* Falling Flowers & Elements */
+    .gift-btn-entry {
+      background: linear-gradient(45deg, #ff2a75, #ffd700);
+      color: #000;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(255, 42, 117, 0.8);
+      animation: pulse 1.5s infinite alternate;
+      transition: transform 0.2s;
+    }
+
+    .gift-btn-entry:hover {
+      transform: scale(1.08);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 20px rgba(255, 42, 117, 0.6); }
+      100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.9); }
+    }
+
+    /* Falling Elements */
     .falling-container {
       position: fixed;
       top: 0;
@@ -48,474 +77,471 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 10;
-      overflow: hidden;
+      z-index: 1;
     }
 
     .falling-item {
       position: absolute;
-      top: -60px;
-      animation: fallAnimation linear infinite;
-      user-select: none;
+      top: -50px;
+      animation: fall linear infinite;
+      font-size: 1.8rem;
+      opacity: 0.85;
     }
 
-    @keyframes fallAnimation {
-      0% {
-        transform: translateY(-60px) rotate(0deg) scale(0.8);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(108vh) rotate(360deg) scale(1.2);
-        opacity: 0.1;
-      }
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0.2; }
     }
 
-    /* Cake & Candle Styles */
-    .flame-element {
-      animation: flameFlicker 0.15s infinite alternate ease-in-out;
-      transform-origin: center bottom;
-      transition: all 0.4s ease;
+    /* Main Content Area */
+    #main-content {
+      display: none;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px 20px 80px;
+      position: relative;
+      z-index: 2;
     }
 
-    @keyframes flameFlicker {
-      0% { transform: scale(1) rotate(-3deg); filter: drop-shadow(0 0 10px #ff9900) drop-shadow(0 0 20px #ff0000); }
-      100% { transform: scale(1.12) rotate(3deg); filter: drop-shadow(0 0 15px #ffd700) drop-shadow(0 0 25px #ff4500); }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
     }
 
-    .smoke-particle {
+    h1 {
+      font-size: 2.8rem;
+      color: var(--accent-gold);
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #f3a6c8;
+      font-style: italic;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+
+    /* Interactive Cake */
+    .cake-container {
+      position: relative;
+      width: 200px;
+      height: 180px;
+      margin: 20px auto 10px;
+    }
+
+    .cake-base {
       position: absolute;
-      width: 12px;
-      height: 12px;
-      background: rgba(220, 220, 220, 0.7);
+      bottom: 0;
+      width: 200px;
+      height: 60px;
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
+      border-radius: 10px 10px 0 0;
+    }
+
+    .cake-middle {
+      position: absolute;
+      bottom: 60px;
+      left: 20px;
+      width: 160px;
+      height: 50px;
+      background: linear-gradient(to right, #f7797d, #fbd786);
+      border-radius: 10px 10px 0 0;
+    }
+
+    .cake-top {
+      position: absolute;
+      bottom: 110px;
+      left: 40px;
+      width: 120px;
+      height: 40px;
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      border-radius: 10px 10px 0 0;
+    }
+
+    .candle {
+      position: absolute;
+      bottom: 150px;
+      left: 93px;
+      width: 14px;
+      height: 35px;
+      background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff2a75 5px, #ff2a75 10px);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .flame {
+      position: absolute;
+      bottom: 185px;
+      left: 92px;
+      width: 16px;
+      height: 25px;
+      background: radial-gradient(ellipse at bottom, #ffd700 0%, #ff4500 60%, transparent 100%);
+      border-radius: 50% 50% 20% 20%;
+      box-shadow: 0 0 20px #ffd700, 0 0 30px #ff4500;
+      animation: flicker 0.2s infinite alternate;
+      transition: opacity 0.5s;
+    }
+
+    .flame.off { opacity: 0; display: none; }
+
+    .smoke {
+      position: absolute;
+      bottom: 185px;
+      left: 95px;
+      width: 10px;
+      height: 10px;
+      background: rgba(200, 200, 200, 0.8);
       border-radius: 50%;
       opacity: 0;
-      pointer-events: none;
     }
 
-    .smoke-active {
-      animation: smokeRise 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    .smoke.active { animation: rise 1.5s forwards; }
+
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-2deg); }
+      100% { transform: scale(1.1) rotate(2deg); }
     }
 
-    @keyframes smokeRise {
-      0% { opacity: 0.9; transform: translateY(0) scale(1); }
-      100% { opacity: 0; transform: translateY(-70px) scale(3.5); filter: blur(4px); }
+    @keyframes rise {
+      0% { opacity: 0.8; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-40px) scale(3); }
     }
 
-    /* Glowing Text Effect */
-    .glow-gold {
-      text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 0 30px rgba(212, 175, 55, 0.3);
-    }
-    
-    .glow-pink {
-      text-shadow: 0 0 15px rgba(233, 30, 99, 0.7), 0 0 30px rgba(255, 64, 129, 0.4);
-    }
-
-    /* Music Visualizer Waves */
-    .bar {
-      width: 4px;
-      height: 16px;
-      background-color: var(--gold-primary);
-      border-radius: 2px;
-      animation: soundWave 1.2s ease-in-out infinite alternate;
+    /* Blow Button */
+    .blow-btn {
+      background: linear-gradient(45deg, #ff2a75, #ff6097);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 15px;
+      box-shadow: 0 4px 15px rgba(255, 42, 117, 0.4);
+      transition: transform 0.2s;
     }
 
-    .bar:nth-child(1) { animation-delay: 0.1s; }
-    .bar:nth-child(2) { animation-delay: 0.3s; }
-    .bar:nth-child(3) { animation-delay: 0.5s; }
-    .bar:nth-child(4) { animation-delay: 0.2s; }
+    .blow-btn:active { transform: scale(0.95); }
 
-    @keyframes soundWave {
-      0% { height: 6px; }
-      100% { height: 26px; }
+    .blow-status {
+      margin-top: 15px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      min-height: 25px;
+    }
+
+    .love-msg {
+      display: none;
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(255, 42, 117, 0.2);
+      border: 1px solid var(--accent-pink);
+      border-radius: 15px;
+      line-height: 1.6;
+      animation: fadeIn 1s forwards;
+    }
+
+    /* Gifts Grid */
+    .gifts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .gift-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed var(--accent-gold);
+      border-radius: 15px;
+      padding: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .gift-card:hover { background: rgba(255, 255, 255, 0.12); }
+
+    .gift-text {
+      display: none;
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: var(--accent-gold);
+    }
+
+    /* Music Floating Bar */
+    .music-bar {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid var(--accent-gold);
+      padding: 10px 20px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .music-btn {
+      background: var(--accent-pink);
+      border: none;
+      color: white;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
-<body class="relative min-h-screen pb-24 text-gray-100 selection:bg-pink-500 selection:text-white">
+<body>
 
-  <!-- Audio Stream: Rosa Ree - It's Your Birthday theme -->
+  <!-- Landing Screen -->
+  <div id="welcome-screen">
+    <h1 style="margin-bottom: 15px;">Mambo Vipi Ziana! 👋❤️</h1>
+    <p style="color: #ddd; margin-bottom: 30px; font-size: 1.1rem;">Kuna kitu maalum kimeandaliwa kwa ajili yako leo...</p>
+    <button class="gift-btn-entry" onclick="openMainSurprise()">🎁 Fungua Zawadi Yako Ziana</button>
+  </div>
+
+  <!-- Falling Elements Container -->
+  <div class="falling-container" id="falling-container"></div>
+
+  <!-- Audio Player -->
   <audio id="bg-music" loop preload="auto">
+    <!-- Streamable Audio Track for Rosa Ree - It's Your Birthday -->
     <source src="https://cdn.jiosaavn.com/m4a_320/999/8636a0d4db0264ed1a884e93fbfaec73_320.m4a" type="audio/mp4">
   </audio>
 
-  <!-- Floating Falling Animation Container -->
-  <div class="falling-container" id="falling-container"></div>
+  <!-- Main Website Content -->
+  <div id="main-content">
 
-  <!-- Header Banner -->
-  <header class="pt-10 pb-6 text-center px-4 relative z-20">
-    <div class="inline-block px-4 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-300 text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3 backdrop-blur-md">
-      ✨ Siku Maalum Ya Malkia ✨
+    <header>
+      <h1>Happy Birthday Ziana! 🎉❤️</h1>
+      <p class="subtitle">Siku yako maalum imefika, Malkia wangu wa nguvu!</p>
+    </header>
+
+    <!-- Interactive Cake Card -->
+    <div class="card">
+      <h2 style="color: var(--accent-pink);">Keki Yako Maalum 🎂</h2>
+      <p style="color: #ccc; margin-top: 5px;">Bonyeza kitufe cha kupuliza chini ili uzime mshumaa!</p>
+
+      <div class="cake-container">
+        <div class="smoke" id="smoke"></div>
+        <div class="flame" id="flame"></div>
+        <div class="candle"></div>
+        <div class="cake-top"></div>
+        <div class="cake-middle"></div>
+        <div class="cake-base"></div>
+      </div>
+
+      <button class="blow-btn" onclick="blowCandle()">💨 Puliza Mshumaa</button>
+      <div class="blow-status" id="blow-status">Bonyeza kitufe kuanza kupuliza!</div>
+
+      <div class="love-msg" id="love-msg">
+        <h3>🎉 HONGERA SANA ZIANA! 🎉</h3>
+        <p>Mshumaa umezoea kuwaka, lakini upendo wangu kwako unawaka na kutokomeza kila giza. Nakupenda sana mpenzi wangu, Happy Birthday! ❤️✨</p>
+      </div>
     </div>
-    <h1 class="text-4xl sm:text-6xl md:text-7xl font-cinzel font-bold text-amber-300 glow-gold tracking-tight mb-2">
-      HAPPY BIRTHDAY
-    </h1>
-    <h2 class="text-5xl sm:text-7xl md:text-8xl font-script text-pink-500 glow-pink leading-tight">
-      Ziana
-    </h2>
-  </header>
 
-  <!-- Main Content Container -->
-  <main class="max-w-4xl mx-auto px-4 sm:px-6 relative z-20 space-y-8">
-
-    <!-- Interactive Candle & Cake Section -->
-    <section class="glass-card rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden transition-all duration-500 hover:border-amber-400/40">
-      <div class="absolute -top-24 -right-24 w-48 h-48 bg-pink-600/20 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
-
-      <h3 class="text-2xl sm:text-3xl font-cinzel font-bold text-amber-300 mb-2">Keki Yako Maalum 🎂</h3>
-      <p class="text-sm sm:text-base text-gray-300 max-w-md mx-auto mb-6">
-        Gusa mshumaa mara ya kwanza kupuliza, kisha gusa mara ya pili ili uuzime kabisa!
+    <!-- Romantic Love Letter Card -->
+    <div class="card" style="text-align: left;">
+      <h2 style="color: var(--accent-gold); text-align: center; margin-bottom: 20px;">Barua Yako Ya Mahaba 💌</h2>
+      <p style="line-height: 1.8; color: #ffe6f0;">
+        <strong>Kwa Ziana Wangu Wa Mshipa Wa Moyo,</strong><br><br>
+        Siku ya leo ilipofika, mbingu na ardhi zilijua kuwa alizaliwa mtu wa thamani ya kipekee sana kwangu. Wewe si tu mpenzi, bali ni furaha, amani, na tabasamu linalotengeneza siku yangu kuwa njema kila mara.<br><br>
+        Asante kwa kuwa mwaminifu, mwenye upendo, na mwenye roho safi. Kila sekunde inayopita nikiwa na wewe ni zawadi kubwa kutoka kwa Mungu. Nakuahidi kukupenda, kukulinda, na kukuthamini siku zote za maisha yangu.<br><br>
+        Mungu akubariki kwa miaka mingi zaidi yenye afya tele, mafanikio, na furaha isiyo na kifani. Happy Birthday Sweetheart! 🌹🥂
       </p>
+    </div>
 
-      <!-- Cake Container -->
-      <div class="relative w-64 h-64 mx-auto my-4 cursor-pointer group select-none" onclick="handleCandleInteraction()" title="Gusa hapa kupuliza mshumaa!">
-        
-        <!-- Smoke Placeholder -->
-        <div id="smoke-container" class="absolute left-1/2 -translate-x-1/2 top-4 z-30"></div>
-
-        <!-- Candle Flame -->
-        <div id="flame" class="flame-element absolute left-1/2 -translate-x-1/2 top-4 z-20 w-8 h-12 flex items-center justify-center">
-          <svg viewBox="0 0 100 150" class="w-full h-full drop-shadow-lg">
-            <path d="M50 0 C60 40 90 70 80 110 C70 140 30 140 20 110 C10 70 40 40 50 0 Z" fill="url(#flameGradient)"/>
-            <path d="M50 30 C55 55 70 75 65 100 C60 120 40 120 35 100 C30 75 45 55 50 30 Z" fill="#FFF8DC"/>
-            <defs>
-              <linearGradient id="flameGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#FFD700" />
-                <stop offset="50%" stop-color="#FF4500" />
-                <stop offset="100%" stop-color="#FF0000" />
-              </linearGradient>
-            </defs>
-          </svg>
+    <!-- Digital Gifts Card -->
+    <div class="card">
+      <h2 style="color: var(--accent-pink); margin-bottom: 15px;">Zawadi Zako Za Siku Ya Kuzaliwa 🎁</h2>
+      <p style="color: #bbb; font-size: 0.95rem;">Gusa sanduku kufungua zawadi yako:</p>
+      
+      <div class="gifts-grid">
+        <div class="gift-card" onclick="openGift(this)">
+          <div style="font-size: 2.5rem;">🎁</div>
+          <h4>Zawadi #1</h4>
+          <div class="gift-text">Shopping ya Nguo & Vipodozi unavyopenda wewe mwenyewe! 🛍️✨</div>
         </div>
 
-        <!-- Candle Stick -->
-        <div class="absolute left-1/2 -translate-x-1/2 top-14 w-4 h-16 bg-gradient-to-r from-pink-300 via-white to-pink-300 rounded-t-sm shadow-md z-10 border-b border-pink-400">
-          <div class="w-full h-full bg-[repeating-linear-gradient(45deg,transparent,transparent_6px,rgba(233,30,99,0.5)_6px,rgba(233,30,99,0.5)_12px)]"></div>
+        <div class="gift-card" onclick="openGift(this)">
+          <div style="font-size: 2.5rem;">🌹</div>
+          <h4>Zawadi #2</h4>
+          <div class="gift-text">Romantic Dinner Date sehemu yoyote utakayochagua! 🍽️🥂</div>
         </div>
 
-        <!-- 3-Tier Royalty Cake SVG -->
-        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-56 h-40">
-          <svg viewBox="0 0 200 150" class="w-full h-full drop-shadow-2xl">
-            <!-- Top Layer -->
-            <rect x="50" y="30" width="100" height="35" rx="6" fill="#FF80AB" />
-            <path d="M 50 38 Q 62.5 48 75 38 Q 87.5 48 100 38 Q 112.5 48 125 38 Q 137.5 48 150 38 L 150 30 L 50 30 Z" fill="#FFF" />
-            <!-- Middle Layer -->
-            <rect x="30" y="65" width="140" height="40" rx="8" fill="#E91E63" />
-            <path d="M 30 73 Q 47.5 85 65 73 Q 82.5 85 100 73 Q 117.5 85 135 73 Q 152.5 85 170 73 L 170 65 L 30 65 Z" fill="#FFD700" opacity="0.9" />
-            <!-- Bottom Layer -->
-            <rect x="10" y="105" width="180" height="45" rx="10" fill="#880E4F" />
-            <path d="M 10 113 Q 32.5 125 55 113 Q 77.5 125 100 113 Q 122.5 125 145 113 Q 167.5 125 190 113 L 190 105 L 10 105 Z" fill="#FFF" opacity="0.95" />
-            <!-- Decor Pearls -->
-            <circle cx="30" cy="105" r="3" fill="#FFD700"/>
-            <circle cx="65" cy="105" r="3" fill="#FFD700"/>
-            <circle cx="100" cy="105" r="3" fill="#FFD700"/>
-            <circle cx="135" cy="105" r="3" fill="#FFD700"/>
-            <circle cx="170" cy="105" r="3" fill="#FFD700"/>
-          </svg>
+        <div class="gift-card" onclick="openGift(this)">
+          <div style="font-size: 2.5rem;">👑</div>
+          <h4>Zawadi #3</h4>
+          <div class="gift-text">Upendo usio na mwisho na kupewa ufalme wa moyo wangu siku zote! 💖🔑</div>
         </div>
-      </div>
-
-      <!-- Live Interactive Prompt Message -->
-      <div id="candle-prompt" class="mt-4 px-4 py-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-medium text-sm sm:text-base inline-block animate-pulse">
-        👉 Bonyeza kwenye mshumaa ili utoe mlio wa kupuliza!
-      </div>
-
-      <!-- Surprise Cake Cut Banner (Triggered after second blow) -->
-      <div id="cake-cut-banner" class="hidden mt-6 p-6 rounded-2xl bg-gradient-to-r from-pink-900/60 via-purple-900/60 to-pink-900/60 border border-pink-500/50 shadow-2xl transition-all duration-700 transform translate-y-4">
-        <h4 class="text-2xl font-cinzel font-bold text-amber-300 mb-2">🎉 KEKI IMEKATIKA NA MSHUMAA UMEZIMA! 🎉</h4>
-        <p class="text-pink-100 leading-relaxed text-sm sm:text-base">
-          Hongera sana mpenzi wangu Ziana! Mshumaa umezima lakini mwanga na upendo wako ndani ya moyo wangu hautazima milele. Furahia keki yako tamu ya birthday! ❤️🎂✨
-        </p>
-      </div>
-    </section>
-
-    <!-- Love Letter Section -->
-    <section class="glass-card rounded-3xl p-6 sm:p-10 relative">
-      <div class="flex items-center justify-between mb-6 border-b border-amber-500/20 pb-4">
-        <h3 class="text-2xl sm:text-3xl font-cinzel font-bold text-amber-300">Barua Yako Ya Mahaba 💌</h3>
-        <span class="text-3xl">🌹</span>
-      </div>
-
-      <div class="space-y-4 font-normal text-pink-50/90 text-base sm:text-lg leading-relaxed text-justify sm:text-left">
-        <p class="font-script text-3xl sm:text-4xl text-amber-300">Kwa Ziana Wangu Wa Mshipa Wa Moyo,</p>
-        <p>
-          Siku ya leo ilipofika, dunia nzima ilipata zawadi ya mtu wa kipekee na wa thamani sana. Wewe si tu mpenzi wangu, bali ni amani yangu, furaha yangu, na taa inayomulika kila hatua ya maisha yangu.
-        </p>
-        <p>
-          Asante kwa kuwa na roho safi, tabasamu mwanana linalofuta shida zangu zote, na upendo wa dhati usio na masharti. Kila sekunde ninayotumia na wewe ni baraka isiyo na kifani kutoka kwa Mwenyezi Mungu.
-        </p>
-        <p>
-          Nakuahidi kusimama na wewe, kukulinda, kukuthamini na kukupenda zaidi kila siku inayopita. Mungu akujalie miaka mingi zaidi yenye afya tele, furaha isiyo na kifani, na mafanikio makubwa.
-        </p>
-        <p class="font-script text-3xl sm:text-4xl text-right text-pink-400 pt-4">
-          Nakupenda Mno, Malkia Wangu! ❤️
-        </p>
-      </div>
-    </section>
-
-    <!-- Virtual Gifts Section -->
-    <section class="glass-card rounded-3xl p-6 sm:p-10 text-center">
-      <h3 class="text-2xl sm:text-3xl font-cinzel font-bold text-amber-300 mb-2">Zawadi Zako Za Siku Ya Kuzaliwa 🎁</h3>
-      <p class="text-gray-300 text-sm sm:text-base mb-8">Gusa kila kisanduku ili ufungue zawadi yako maalum:</p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <!-- Gift 1 -->
-        <div onclick="openGiftBox(this)" class="group cursor-pointer p-6 rounded-2xl bg-white/5 border border-amber-400/20 hover:border-pink-500/60 hover:bg-white/10 transition-all duration-300 flex flex-col items-center justify-between min-h-[220px] shadow-lg">
-          <div class="gift-icon text-5xl mb-3 transform group-hover:scale-110 transition-transform duration-300">🎁</div>
-          <h4 class="font-cinzel text-amber-300 font-bold mb-2">Zawadi #1</h4>
-          <div class="gift-content text-xs sm:text-sm text-pink-200 hidden leading-relaxed">
-            ✨ Siku nzima ya Shopping ya Nguo na Vipodozi Unavyopenda Wewe Mwenyewe! 🛍️💅
-          </div>
-          <span class="tap-hint text-xs text-amber-400/70 mt-2">Gusa Fungua 🔓</span>
-        </div>
-
-        <!-- Gift 2 -->
-        <div onclick="openGiftBox(this)" class="group cursor-pointer p-6 rounded-2xl bg-white/5 border border-amber-400/20 hover:border-pink-500/60 hover:bg-white/10 transition-all duration-300 flex flex-col items-center justify-between min-h-[220px] shadow-lg">
-          <div class="gift-icon text-5xl mb-3 transform group-hover:scale-110 transition-transform duration-300">🌹</div>
-          <h4 class="font-cinzel text-amber-300 font-bold mb-2">Zawadi #2</h4>
-          <div class="gift-content text-xs sm:text-sm text-pink-200 hidden leading-relaxed">
-            🥂 Romantic Candlelight Dinner Sehemu Yoyote Ya Luxury Utakayochagua! 🍽️✨
-          </div>
-          <span class="tap-hint text-xs text-amber-400/70 mt-2">Gusa Fungua 🔓</span>
-        </div>
-
-        <!-- Gift 3 -->
-        <div onclick="openGiftBox(this)" class="group cursor-pointer p-6 rounded-2xl bg-white/5 border border-amber-400/20 hover:border-pink-500/60 hover:bg-white/10 transition-all duration-300 flex flex-col items-center justify-between min-h-[220px] shadow-lg">
-          <div class="gift-icon text-5xl mb-3 transform group-hover:scale-110 transition-transform duration-300">👑</div>
-          <h4 class="font-cinzel text-amber-300 font-bold mb-2">Zawadi #3</h4>
-          <div class="gift-content text-xs sm:text-sm text-pink-200 hidden leading-relaxed">
-            🔑 Upendo Usio na Mwisho Na Kuwa Mfalme Na Malkia Wa Maisha Yangu Siku Zote! 💖
-          </div>
-          <span class="tap-hint text-xs text-amber-400/70 mt-2">Gusa Fungua 🔓</span>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Persistent Floating Music Player Bar -->
-  <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-11/12 max-w-md glass-card rounded-full px-5 py-3 flex items-center justify-between shadow-2xl border border-amber-400/40">
-    <div class="flex items-center gap-3">
-      <div id="visualizer" class="flex items-center gap-1">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
-      <div class="text-left overflow-hidden">
-        <p class="text-xs text-amber-300 font-semibold uppercase tracking-wider">Inacheza Sasa 🎶</p>
-        <p class="text-xs sm:text-sm text-white font-medium truncate max-w-[180px] sm:max-w-[220px]">Rosa Ree - It's Your Birthday</p>
       </div>
     </div>
 
-    <button id="music-btn" onclick="toggleAudio()" class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-amber-500 flex items-center justify-center text-white shadow-lg hover:scale-105 active:scale-95 transition-transform">
-      <span id="music-icon" class="text-sm">🔊</span>
-    </button>
   </div>
 
-  <!-- JavaScript Application Logic -->
+  <!-- Music Bar -->
+  <div class="music-bar">
+    <button class="music-btn" id="music-toggle" onclick="toggleMusic()">🔊</button>
+    <span style="font-size: 0.85rem; color: #ffd700;">Rosa Ree - It's Your Birthday 🎶</span>
+  </div>
+
   <script>
     const audio = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-btn');
-    const musicIcon = document.getElementById('music-icon');
-    const visualizer = document.getElementById('visualizer');
+    const musicBtn = document.getElementById('music-toggle');
+    let tapCount = 0;
 
-    let isPlaying = false;
-
-    // Autoplay Engine logic
-    function attemptAutoplay() {
+    // Trigger main view & audio on entry click
+    function openMainSurprise() {
+      document.getElementById('welcome-screen').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+      
+      // Play Audio
       audio.play().then(() => {
-        isPlaying = true;
-        updateMusicUI(true);
-      }).catch((error) => {
-        console.log("Autoplay blocked by browser. Awaiting user interaction...");
-        updateMusicUI(false);
-        // Bind one-time global click listener to unlock audio seamlessly
-        document.addEventListener('click', unlockAudioOnFirstTouch, { once: true });
-        document.addEventListener('touchstart', unlockAudioOnFirstTouch, { once: true });
+        musicBtn.textContent = '🔊';
+      }).catch(err => {
+        console.log("Audio playback error:", err);
       });
+
+      createFallingElements();
     }
 
-    function unlockAudioOnFirstTouch() {
-      audio.play().then(() => {
-        isPlaying = true;
-        updateMusicUI(true);
-      });
-    }
-
-    function toggleAudio() {
+    function toggleMusic() {
       if (audio.paused) {
         audio.play();
-        isPlaying = true;
-        updateMusicUI(true);
+        musicBtn.textContent = '🔊';
       } else {
         audio.pause();
-        isPlaying = false;
-        updateMusicUI(false);
+        musicBtn.textContent = '🔇';
       }
     }
 
-    function updateMusicUI(active) {
-      if (active) {
-        musicIcon.textContent = "🔊";
-        visualizer.style.opacity = "1";
-      } else {
-        musicIcon.textContent = "🔇";
-        visualizer.style.opacity = "0.3";
-      }
-    }
+    // Candle Blow Function (4 Taps Requirement)
+    function blowCandle() {
+      if (tapCount >= 4) return;
 
-    window.addEventListener('DOMContentLoaded', () => {
-      attemptAutoplay();
-      startCascadingFlowers();
-    });
+      playBlowingSound();
+      tapCount++;
 
-    let candleBlowStage = 0;
-
-    function handleCandleInteraction() {
+      const status = document.getElementById('blow-status');
       const flame = document.getElementById('flame');
-      const candlePrompt = document.getElementById('candle-prompt');
-      const cakeCutBanner = document.getElementById('cake-cut-banner');
-      const smokeContainer = document.getElementById('smoke-container');
+      const smoke = document.getElementById('smoke');
+      const loveMsg = document.getElementById('love-msg');
 
-      // Synthesize realistic puff/blow audio sound using Web Audio API
-      playBlowSoundEffect();
+      if (tapCount === 1) {
+        status.innerHTML = "🌬️ *WHOOSH!* Puliza tena... (Mshumaa bado unawaka 🔥)";
+        flame.style.transform = "scale(0.8)";
+      } else if (tapCount === 2) {
+        status.innerHTML = "🌬️ *WHOOSH!* Bado kidogo Ziana! Puliza tena... 🔥";
+        flame.style.transform = "scale(0.6)";
+      } else if (tapCount === 3) {
+        status.innerHTML = "🌬️ *WHOOSH!* Mara moja tu imebaki! Puliza kwa nguvu... 🔥";
+        flame.style.transform = "scale(0.3)";
+      } else if (tapCount === 4) {
+        flame.classList.add('off');
+        smoke.classList.add('active');
+        status.innerHTML = "✨ MSHUMAA UMEZIMA KABISA! 🎉";
+        status.style.color = "#4E9F3D";
 
-      if (candleBlowStage === 0) {
-        // First Interaction: Blow audio sound plays, flame flickers, prompt updates
-        candleBlowStage = 1;
-        candlePrompt.innerHTML = "🌬️ <i>*WHOOSH!*</i> 🔥 Puliza tena mara moja zaidi uzime kabisa!";
-        candlePrompt.className = "mt-4 px-4 py-3 rounded-2xl bg-pink-600/30 border border-pink-400 text-pink-200 font-bold text-sm sm:text-base inline-block animate-bounce";
-
-        // Flame shake/bounce transition
-        flame.style.transform = "scale(0.5) rotate(-10deg)";
         setTimeout(() => {
-          flame.style.transform = "scale(1) rotate(0deg)";
-        }, 400);
-
-      } else if (candleBlowStage === 1) {
-        // Second Interaction: Flame goes out, smoke rises, cake banner appears, confetti explodes
-        candleBlowStage = 2;
-
-        // Hide flame completely
-        flame.style.opacity = "0";
-        flame.style.transform = "scale(0)";
-
-        // Generate Smoke Particles
-        for (let i = 0; i < 5; i++) {
-          setTimeout(() => {
-            const particle = document.createElement('div');
-            particle.className = 'smoke-particle smoke-active';
-            particle.style.left = (Math.random() * 20 - 10) + 'px';
-            smokeContainer.appendChild(particle);
-            setTimeout(() => particle.remove(), 2000);
-          }, i * 150);
-        }
-
-        // Update Prompt Message
-        candlePrompt.innerHTML = "✨ MSHUMAA UMEZIMA KABISA! 🎉";
-        candlePrompt.className = "mt-4 px-4 py-3 rounded-2xl bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-bold text-sm sm:text-base inline-block";
-
-        // Display Celebration Cake Cut Banner
-        setTimeout(() => {
-          cakeCutBanner.classList.remove('hidden');
-          cakeCutBanner.classList.add('block');
-          fireGrandConfetti();
+          loveMsg.style.display = "block";
+          triggerConfetti();
         }, 600);
       }
     }
 
-    // Web Audio Synthesizer for blowing noise
-    function playBlowSoundEffect() {
+    // Realistic Blowing Audio Synthesizer
+    function playBlowingSound() {
       try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        const ctx = new AudioContext();
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const bufferSize = audioCtx.sampleRate * 0.35;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
         
-        const bufferSize = ctx.sampleRate * 0.5; // 0.5 seconds
-        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const output = buffer.getChannelData(0);
-
         for (let i = 0; i < bufferSize; i++) {
-          output[i] = Math.random() * 2 - 1; // White noise
+          data[i] = Math.random() * 2 - 1;
         }
 
-        const whiteNoise = ctx.createBufferSource();
-        whiteNoise.buffer = buffer;
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
 
-        const filter = ctx.createBiquadFilter();
+        const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(300, ctx.currentTime);
-        filter.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.5);
+        filter.frequency.setValueAtTime(450, audioCtx.currentTime);
 
-        const gain = ctx.createGain();
-        gain.gain.setValueAtTime(0.4, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
 
-        whiteNoise.connect(filter);
+        noise.connect(filter);
         filter.connect(gain);
-        gain.connect(ctx.destination);
+        gain.connect(audioCtx.destination);
 
-        whiteNoise.start();
+        noise.start();
       } catch (e) {
-        console.log("Web Audio API not supported/permitted");
+        console.log("Audio Context not ready.");
       }
     }
 
-    function startCascadingFlowers() {
+    // Falling Flowers & Balloons Animation
+    function createFallingElements() {
       const container = document.getElementById('falling-container');
-      const icons = ['🌸', '🌹', '🎈', '💖', '🌺', '✨', '👑'];
-
-      for (let i = 0; i < 35; i++) {
-        const item = document.createElement('div');
-        item.className = 'falling-item';
-        item.textContent = icons[Math.floor(Math.random() * icons.length)];
-        item.style.left = Math.random() * 100 + 'vw';
-        item.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
-        item.style.animationDuration = (Math.random() * 4 + 4) + 's';
-        item.style.animationDelay = (Math.random() * 5) + 's';
-        container.appendChild(item);
+      const items = ['🌸', '🌹', '🎈', '🌺', '💖', '✨'];
+      
+      for (let i = 0; i < 30; i++) {
+        const el = document.createElement('div');
+        el.className = 'falling-item';
+        el.textContent = items[Math.floor(Math.random() * items.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        el.style.animationDelay = (Math.random() * 4) + 's';
+        container.appendChild(el);
       }
     }
 
-    function openGiftBox(card) {
-      const giftContent = card.querySelector('.gift-content');
-      const giftIcon = card.querySelector('.gift-icon');
-      const tapHint = card.querySelector('.tap-hint');
-
-      if (giftContent.classList.contains('hidden')) {
-        giftContent.classList.remove('hidden');
-        giftIcon.textContent = '🔓';
-        tapHint.textContent = 'Imeifunguliwa! ✨';
-        card.classList.add('border-pink-500', 'bg-white/15');
-        
-        // Mini confetti burst for each gift box opened
-        if (typeof confetti === 'function') {
-          confetti({
-            particleCount: 40,
-            spread: 60,
-            origin: { y: 0.7 }
-          });
-        }
+    // Open Gift Function
+    function openGift(element) {
+      const giftText = element.querySelector('.gift-text');
+      if (giftText.style.display !== 'block') {
+        giftText.style.display = 'block';
+        element.style.borderColor = '#ff2a75';
       }
     }
 
-    function fireGrandConfetti() {
-      if (typeof confetti === 'function') {
-        const duration = 3 * 1000;
-        const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
-
-        const interval = setInterval(function() {
-          const timeLeft = animationEnd - Date.now();
-          if (timeLeft <= 0) {
-            return clearInterval(interval);
-          }
-          const particleCount = 50 * (timeLeft / duration);
-          confetti(Object.assign({}, defaults, { particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
-        }, 250);
+    // Confetti Cannon
+    function triggerConfetti() {
+      const container = document.getElementById('falling-container');
+      const colors = ['#ffd700', '#ff2a75', '#ffffff', '#00ffff', '#ff00ff'];
+      
+      for (let i = 0; i < 60; i++) {
+        const conf = document.createElement('div');
+        conf.className = 'falling-item';
+        conf.style.width = '12px';
+        conf.style.height = '12px';
+        conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        container.appendChild(conf);
       }
     }
   </script>
 </body>
 </html>
-```
